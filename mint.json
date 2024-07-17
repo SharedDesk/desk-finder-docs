@@ -25,19 +25,27 @@
     "name": "Zur App",
     "url": "https://staging.shared-desk.cloud"
   },
+  "tabs": [
+    {
+      "name": "API Reference",
+      "url": "api-reference"
+    }
+  ],
   "anchors": [
     {
       "name": "Homepage",
       "icon": "house",
       "url": "https://shared-desk.cloud"
-    }, {
+    },
+    {
       "name": "App",
       "icon": "globe-pointer",
       "url": "https://production.shared-desk.cloud"
-    }, {
+    },
+    {
       "name": "Beta",
       "icon": "flask",
-      "url" : "https://staging.shared-desk.cloud"
+      "url": "https://staging.shared-desk.cloud"
     }
   ],
   "navigation": [
