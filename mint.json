@@ -25,13 +25,6 @@
     "name": "Zur App",
     "url": "https://staging.shared-desk.cloud"
   },
-  "tabs": [
-    {
-      "name": "API Dokumenation",
-      "url": "api-reference",
-      "openapi": "https://staging.shared-desk.cloud/api-docs"
-    }
-  ],
   "anchors": [
     {
       "name": "Homepage",
@@ -59,5 +52,6 @@
   ],
   "footerSocials": {
     "github": "https://github.com/SharedDesk"
-  }
+  },
+  "openapi": "https://staging.shared-desk.cloud/api-docs"
 }
