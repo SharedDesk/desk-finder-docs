@@ -2,17 +2,17 @@
   "$schema": "https://mintlify.com/schema.json",
   "name": "Shared Desk Docs",
   "logo": {
-    "dark": "/logo/dark.svg",
-    "light": "/logo/light.svg"
+    "dark": "/logo/dark.png",
+    "light": "/logo/light.png"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "/logo/favicon.png",
   "colors": {
-    "primary": "#0D9373",
-    "light": "#07C983",
-    "dark": "#0D9373",
+    "primary": "#1677ab",
+    "light": "#078cc9",
+    "dark": "#077bb0",
     "anchors": {
-      "from": "#0D9373",
-      "to": "#07C983"
+      "from": "#078cc9",
+      "to": "#077bb0"
     }
   },
   "topbarLinks": [
@@ -22,14 +22,13 @@
     }
   ],
   "topbarCtaButton": {
-    "name": "Zur App",
+    "name": "App",
     "url": "https://staging.shared-desk.cloud"
   },
   "tabs": [
-    {
-      "name": "API Reference",
-      "url": "api-reference"
-    }
+  ],
+  "openapi": [
+    "https://staging.shared-desk.cloud/api-docs"
   ],
   "anchors": [
     {
@@ -46,35 +45,14 @@
       "name": "Beta",
       "icon": "flask",
       "url": "https://staging.shared-desk.cloud"
-    },
-     {
-      "name": "API Reference",
-      "openapi": "/api-reference/openapi.json",
-      "url": "api-reference",
-      "icon": "square-terminal"
     }
   ],
   "navigation": [
     {
-      "group": "Get Started",
+      "group": "Einführung",
       "pages": [
-        "introduction",
         "installation",
-        "development"
-      ]
-    },
-    {
-      "group": "API Documentation",
-      "pages": [
-        "api-reference/introduction"
-      ]
-    },
-    {
-      "group": "Endpoint Examples",
-      "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
+        "usermanual"
       ]
     }
   ],

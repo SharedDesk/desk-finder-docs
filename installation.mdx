@@ -1,0 +1,360 @@
+---
+title: 'Installation'
+description: 'Wie kann ich die Software installieren?'
+---
+
+Ein Demo-Projekt finden Sie unter [Demo](#demo).
+
+Das Projekt bietet zwei Möglichkeiten zur Installation. Entweder kann das Projekt über Docker installiert werden oder
+manuell.
+
+Diese Anleitung ist in zwei Teile unterteilt. Der erste Teil beschreibt die [Installation über Docker](#docker) und der
+zweite Teil beschreibt die [manuelle Installation](#manual).
+
+## Installation über Docker <a name="docker"></a>
+
+### Voraussetzungen
+
+- Docker Version 25+
+- Mindestens 512 MB freier Arbeitsspeicher
+- Mindestens 1 GB freier Festplattenspeicher
+
+### Installation
+
+1. Erstellen Sie ein neues Verzeichnis und wechseln Sie in dieses Verzeichnis.
+2. Erstellen Sie eine Datei `docker-compose.yml` im Verzeichnis mit folgendem Inhalt:
+
+```yaml
+   services:
+     # Postgres - Database
+     postgres:
+       image: 'postgres:latest'
+       environment:
+         - 'POSTGRES_DB=deskfinder'
+         - 'POSTGRES_PASSWORD=deskfinder'
+         - 'POSTGRES_USER=deskfinder'
+       ports:
+         - '5432:5432'
+       healthcheck:
+         test: [ "CMD-SHELL", "pg_isready -U deskfinder -d deskfinder" ]
+         interval: 30s
+         timeout: 10s
+         retries: 5
+
+     # Redis - Cache
+     redis:
+       image: 'redis:latest'
+       ports:
+         - '6379:6379'
+       healthcheck:
+         test: [ "CMD", "redis-cli", "ping" ]
+         interval: 30s
+         timeout: 10s
+         retries: 5
+     # Backend - Spring Boot
+     backend:
+       image: "ghcr.io/shareddesk/desk-finder-backend:production"
+       ports:
+         - "8080:8080"
+       environment:
+         - "SPRING_PROFILES_ACTIVE=dev-sentry"
+         - "SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/deskfinder"
+         - "REDIS_URL=redis://redis:6379"
+       healthcheck:
+         test: [ "CMD-SHELL", "curl -f http://localhost:8080/api/system/health || exit 1" ]
+         interval: 30s
+         timeout: 10s
+         retries: 5
+     # Frontend - Angular
+     frontend:
+       image: "ghcr.io/shareddesk/desk-finder-frontend:production"
+       ports:
+         - "80:80"
+   ```
+
+Außerdem wird empfohlen in Docker Traefik zu verwenden, um die Anwendung über eine Domain zu erreichen. Hierfür kann
+folgendes Docker Compose file verwendet werden:
+
+   ```yaml
+     traefik:
+       image: "traefik:v2.10"
+       command:
+         - "--api.insecure=true"
+         - "--providers.docker=true"
+         - "--entrypoints.web.address=:80"
+         - "--providers.file.filename=/etc/traefik/frontend.yml"
+         - "--ping=true"
+       ports:
+         - "80:80" # HTTP
+         - "8081:8080" # Dashboard
+       volumes:
+         - "/var/run/docker.sock:/var/run/docker.sock:ro"
+         - "./docker/traefik/traefik.yml:/etc/traefik/frontend.yml"
+       extra_hosts:
+         - "host.docker.internal:host-gateway"
+       healthcheck:
+         test: [ "CMD", "traefik", "healthcheck", "--ping" ]
+         interval: 30s
+         timeout: 10s
+         retries: 5
+   ```
+
+Und eine Datei `traefik.yml` im Ordner `docker/traefik` mit folgendem Inhalt:
+
+   ```yaml
+   http:
+     routers:
+       frontend:
+         rule: "Host(`localhost`)"
+         service: frontend-service
+         priority: 1
+
+       backend:
+         rule: "Host(`localhost`) && (PathPrefix(`/api/`,`/swagger-ui/`,`/api-docs`,`/swagger-resources/`))"
+         service: backend-service
+         priority: 2
+
+     services:
+       frontend-service:
+         loadBalancer:
+           servers:
+             - url: "http://host.docker.internal:80"
+
+       backend-service:
+         loadBalancer:
+           servers:
+             - url: "http://host.docker.internal:8080"
+   ```
+
+``localhost`` sollte durch die Domain ersetzt werden, unter der die Anwendung erreichbar sein soll.
+
+> Die oben genannten Docker Compose Dateien sind nur Beispiele. Sie können die Dateien an Ihre Bedürfnisse anpassen.
+
+> Außerdem finden sie beide Dateien im Ordner `docker` im Repository.
+
+3. Passen Sie die Konfiguration in der Datei `docker-compose.yml` an. - Mehr Informationen dazu finden Sie in
+der [Konfiguration](#configuration)
+
+4. Starten Sie das Projekt mit dem Befehl
+
+```shell
+docker-compose up -d
+```
+
+## Manuelle Installation <a name="manual"></a>
+
+### Voraussetzungen
+
+- Java 21
+- Gradle 7
+- Node.js 20
+- Mindestens 512 MB freier Arbeitsspeicher
+- Mindestens 1 GB freier Festplattenspeicher
+
+### Installation
+
+#### Backend
+
+1. Klonen Sie das Repository mit dem Befehl `git clone https://github.com/SharedDesk/desk-finder-backend.git`
+2. Wechseln Sie in das Verzeichnis `cd desk-finder-backend`
+3. Passen Sie die Konfiguration in der Datei `application.yml` an. - Mehr Informationen dazu finden Sie in der
+[Konfiguration](#configuration)
+4. Starten Sie das Projekt mit dem Befehl `./gradlew bootRun`
+5. Das Backend ist nun unter `http://localhost:8080` erreichbar
+
+Production Build:
+
+6. Erstellen Sie ein JAR-File mit dem Befehl `./gradlew bootJar`
+7. Starten Sie das JAR-File mit dem Befehl `java -jar build/libs/desk-finder-backend-0.0.1-SNAPSHOT.jar`
+
+#### Frontend
+
+1. Klonen Sie das Repository mit dem Befehl `git clone https://github.com/SharedDesk/desk-finder-frontend.git`
+2. Wechseln Sie in das Verzeichnis `cd desk-finder-frontend`
+3. Passen Sie die Konfiguration in der Datei `environment.prod.ts` an. - Mehr Informationen dazu finden Sie in der
+[Konfiguration](#configuration)
+4. Installieren Sie die Abhängigkeiten mit dem Befehl `npm install`
+5. Starten Sie das Projekt mit dem Befehl `npm start`
+6. Das Frontend ist nun unter `http://localhost:4200` erreichbar
+
+Production Build:
+
+7. Erstellen Sie ein Build mit dem Befehl `npm run build`
+8. Kopieren Sie den Inhalt des Ordners `dist` in einen eignen Webserver
+
+## Konfiguration <a name="configuration"></a>
+
+### Backend
+
+Folgende Environment Konfigurationen können in der Datei `application.yml` oder `docker-compose.yml` vorgenommen werden:
+
+### Spring
+
+#### Database
+
+- `SPRING_DATASOURCE_URL` - Database URL
+- `SPRING_DATASOURCE_USERNAME` - Database Username
+- `SPRING_DATASOURCE_PASSWORD` - Database Password
+
+#### Redis
+
+- `SPRING_REDIS_HOST` - Redis Host
+- `SPRING_REDIS_PORT` - Redis Port
+
+#### Mail
+
+Folgende Werte werden benötigt, um den Mailversand zu konfigurieren (Passwort zurücksetzen, etc.)
+
+- `SPRING_MAIL_HOST` - Mail Host
+- `SPRING_MAIL_PORT` - Mail Port
+- `SPRING_MAIL_USERNAME` - Mail Username
+- `SPRING_MAIL_PASSWORD` - Mail Password
+- `SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH` - Mail SMTP Auth
+- `SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE` - Mail SMTP StartTLS Enable
+- `SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_REQUIRED` - Mail SMTP StartTLS Required
+
+### Custom
+
+#### JWT
+
+- `APPLICATION_JWT_SECRET-KEY` - JWT Secret Key
+- `APPLICATION_JWT_ACCESS-EPIRATION` - JWT Access Token Expiration
+- `APPLICATION_JWT_REFRESH-EXPIRATION` - JWT Refresh Token Expiration
+
+#### Cors
+
+- `APPLICATION_CORS_ALLOWED-ORIGINS` - Allowed Origins (e.g. https://shared-desk.cloud)
+- `APPLICATION_PUBLIC-DOMAIN` - Public Domain (e.g. shared-desk.cloud)
+- `APPLICATION_PUBLIC-SCHEME` - Public Scheme (http/https)
+
+#### Sentry
+
+Standardmäßig ist eine Sentry Integration eingebaut. Dieses Feature ist optional.
+
+- `SENTRY_DSN` - Sentry DSN
+- `SENTRY_ENVIRONMENT` - Sentry Environment
+- `SENTRY_TRACES_SAMPLE_RATE` - Sentry Traces Sample Rate
+- `SENTRY_SAMPLE_RATE` - Sentry Sample Rate
+
+> Für weitere Informationen zur Konfiguration von Sentry besuchen Sie
+> die [Sentry Dokumentation](https://docs.sentry.io/platforms/java/guides/spring-boot/)
+
+#### Auth / Registration / Password Reset
+
+- `APPLICATION_REGISTRATION-ENABLED` - Registrierung aktiviert (true/false)
+- `APPLICATION_REGISTRATION-ROLE-SELECTION-ENABLED` - Registrierung Rolle Auswahl aktiviert (true/false)
+- `APPLICATION_REGISTRATION-ROLE-DEFAULT` - Registrierung Rolle Standard (e.g. USER)
+- `APPLICATION_REGISTRATION-ROLE-ADMIN-DISABLED-BY-DEFAULT` - Registrierung Rolle Admin standardmäßig deaktiviert (
+true/false)
+- `APPLICATION_REGISTRATION-MAIL-REGEX` - Registrierung Mail Regex
+- `APPLICATION_REGISTRATION-MAIL-TEMPLATE` - Registrierung Mail Template
+
+#### Reservation
+
+- Maximale Anzahl an z. B. Tagen oder Wochen, die ein Schreibtisch reserviert werden kann
+  - `APPLICATION_RESERVATION-MAX-TIME-AMOUNT` - Anzahl (e.g. 14)
+  - `APPLICATION_RESERVATION-MAX-TIME-UNIT` - Einheit (e.g. DAYS)
+- Ab wann ein alter Reservierungseintrag gelöscht wird
+  - `APPLICATION_RESERVATION-OLD-DELETE-TIME-AMOUNT` - Anzahl (e.g. 30)
+  - `APPLICATION_RESERVATION-OLD-DELETE-TIME-UNIT` - Einheit (e.g. DAYS)
+- Maximale Dauer einer Reservierung
+  - `APPLICATION_MAX-RESERVATION-DURATION-AMOUNT` - Anzahl (e.g. 7)
+  - `APPLICATION_MAX-RESERVATION-DURATION-UNIT` - Einheit (e.g. DAYS)
+
+### Frontend
+
+Im Frontend ist standardmäßig eine Sentry Integration eingebaut. Dieses Feature ist optional.
+Hierfür diese kann in der Datei `src/main.ts` die Sentry DSN angepasst werden:
+
+```typescript
+Sentry.init({
+    dsn: 'SENTRY_DSN',
+    integrations: [new Integrations.BrowserTracing()],
+    tracesSampleRate: 1.0,
+    environment: 'development',
+    release: '1.0.0',
+});
+```
+
+> Für weitere Informationen zur Konfiguration von Sentry besuchen Sie
+> die [Sentry Dokumentation](https://docs.sentry.io/platforms/javascript/guides/angular/)
+
+## CLI
+
+Das Projekt bietet ein CLI-Tool, um die Anwendung zu konfigurieren.
+
+### Manuelle Installation
+
+Wenn das Projekt manuell installiert / gebaut wurde, kann das CLI-Tool mit dem
+Befehl `java -jar desk-finder-backend-0.0.1-SNAPSHOT.jar` gestartet werden.
+Dann erscheint eine Console mit den aktuellen Logs und einem Eingabefeld.
+
+- Alle Befehle können mit `help` eingesehen werden.
+- Eine Liste aller Befehle finden Sie in der [CLI Dokumentation](#cli-commands)
+
+### Docker Installation
+
+### Using the CLI in Docker
+
+Erstellen sie wenn noch nicht vorhanden eine `.env` Datei mit folgendem Inhalt:
+
+```yml
+SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/deskfinder
+SPRING_DATASOURCE_USERNAME=deskfinder
+SPRING_DATASOURCE_PASSWORD=deskfinder
+```
+
+Die Umgebungsvariablen müssen an die eigene Konfiguration angepasst werden. Also gleiche Werte wie in
+der `docker-compose.yml` Datei.
+
+Starte das CLI-Tool mit dem folgenden Befehl:
+
+```shell
+docker run -it --env-file .env --rm ghcr.io/shareddesk/desk-finder-backend:production
+```
+
+Nun startet sich eine 2. Instanz des Backends, die nur das CLI-Tool bereitstellt.
+Dabei ist es egal, ob bereits eine Instanz des Backends läuft oder nicht.
+
+In der Konsole können nun die Befehle ausgeführt werden.
+
+- Alle Befehle können mit `help` eingesehen werden.
+- Eine Liste aller Befehle finden Sie in der [CLI Dokumentation](#cli-commands)
+
+### CLI Commands <a name="cli-commands"></a>
+
+#### User Befehle
+
+- ``user-create firstname lastname email role`` - Erstelle einen neuen Benutzer mit den gegebenen Parametern. Die Rolle
+kann `USER` oder `ADMIN` sein.
+- ``user-set-password email password`` - Setze das Passwort für den Benutzer mit der gegebenen E-Mail.
+- ``user-enable email`` - Aktiviere den Benutzer mit der gegebenen E-Mail.
+- ``user-disable email`` - Deaktiviere den Benutzer mit der gegebenen E-Mail.
+
+#### Beispiel Befehle
+
+- Ersten Admin User erstellen, falls zb die Admin-Registrierung deaktiviert ist:
+
+```shell
+user create John Doe john.doe@example.com ADMIN
+```
+
+- Passwort für den Benutzer setzen:
+
+```shell
+user set-password john.doe@example.com 1234567890aA!
+```
+
+Weitere Befehle können in der Konsole mit `help` eingesehen werden.
+
+## Demo <a name="demo"></a>
+
+- Eine laufende Instanz des Projekts ist
+unter [https://production.shared-desk.cloud](https://production.shared-desk.cloud)
+erreichbar.
+- Die API Dokumentation ist
+unter [https://production.shared-desk.cloud/swagger-ui/](https://production.shared-desk.cloud/swagger-ui/swagger-ui/index.html)
+erreichbar.
+- Bei Fragen oder Problemen können Sie sich gerne an uns wenden. Wir helfen Ihnen gerne weiter.
+- Melden Sie sich einfach über das ``Problem melden`` Feature auf der Webseite.
+
