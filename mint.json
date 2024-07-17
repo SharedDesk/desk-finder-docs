@@ -46,6 +46,12 @@
       "name": "Beta",
       "icon": "flask",
       "url": "https://staging.shared-desk.cloud"
+    },
+     {
+      "name": "API Reference",
+      "openapi": "api-reference/openapi.json",
+      "url": "api-reference",
+      "icon": "square-terminal"
     }
   ],
   "navigation": [
