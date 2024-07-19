@@ -28,7 +28,7 @@
       "bearerAuth": []
     },
     {
-      "cookie": []
+      "cookieAuth": []
     }
   ],
   "tags": [
@@ -10079,12 +10079,6 @@
             "type": "integer",
             "format": "int64"
           },
-          "sort": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/SortObject"
-            }
-          },
           "paged": {
             "type": "boolean"
           },
@@ -11602,9 +11596,6 @@
               "JPEG"
             ]
           },
-          "department": {
-            "$ref": "#/components/schemas/Department"
-          },
           "createdAt": {
             "type": "string",
             "format": "date-time"
@@ -11621,9 +11612,6 @@
           "id": {
             "type": "string",
             "format": "uuid"
-          },
-          "room": {
-            "$ref": "#/components/schemas/Room"
           },
           "name": {
             "type": "string"
@@ -11672,12 +11660,6 @@
           "id": {
             "type": "string",
             "format": "uuid"
-          },
-          "desk": {
-            "$ref": "#/components/schemas/Desk"
-          },
-          "equipment": {
-            "$ref": "#/components/schemas/Equipment"
           },
           "createdAt": {
             "type": "string",
@@ -11788,9 +11770,6 @@
           "token": {
             "type": "string"
           },
-          "user": {
-            "$ref": "#/components/schemas/User"
-          },
           "expiryDate": {
             "type": "string",
             "format": "date-time"
@@ -11810,21 +11789,6 @@
           "description": {
             "type": "string"
           },
-          "reportedBy": {
-            "$ref": "#/components/schemas/User"
-          },
-          "department": {
-            "$ref": "#/components/schemas/Department"
-          },
-          "room": {
-            "$ref": "#/components/schemas/Room"
-          },
-          "desk": {
-            "$ref": "#/components/schemas/Desk"
-          },
-          "equipment": {
-            "$ref": "#/components/schemas/Equipment"
-          },
           "createdAt": {
             "type": "string",
             "format": "date-time"
@@ -11841,12 +11805,6 @@
           "id": {
             "type": "string",
             "format": "uuid"
-          },
-          "user": {
-            "$ref": "#/components/schemas/User"
-          },
-          "desk": {
-            "$ref": "#/components/schemas/Desk"
           },
           "startTime": {
             "type": "string",
@@ -11879,9 +11837,6 @@
           "id": {
             "type": "string",
             "format": "uuid"
-          },
-          "department": {
-            "$ref": "#/components/schemas/Department"
           },
           "name": {
             "type": "string"
@@ -12023,9 +11978,6 @@
           "image": {
             "type": "string",
             "format": "byte"
-          },
-          "user": {
-            "$ref": "#/components/schemas/User"
           }
         }
       },
@@ -12285,16 +12237,12 @@
     },
     "securitySchemes": {
       "cookieAuth": {
-        "type": "apiKey",
-        "name": "Authorization",
-        "in": "cookie"
+        "type": "http",
+        "scheme": "header"
       },
       "bearerAuth": {
         "type": "http",
-        "description": "JWT Authentication",
-        "in": "header",
-        "scheme": "bearer",
-        "bearerFormat": "JWT"
+        "scheme": "bearer"
       }
     }
   }

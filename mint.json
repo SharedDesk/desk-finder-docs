@@ -26,9 +26,15 @@
     "url": "https://staging.shared-desk.cloud"
   },
   "tabs": [
-  ],
-  "openapi": [
-    "https://staging.shared-desk.cloud/api-docs"
+    {
+      "name": "API Reference",
+      "url": "api",
+      "openapi": "/api/openapi.json"
+    },
+    {
+      "name": "Analytics",
+      "url": "analytics"
+    }
   ],
   "anchors": [
     {
@@ -53,6 +59,18 @@
       "pages": [
         "installation",
         "usermanual"
+      ]
+    },
+    {
+      "group": "API",
+      "pages": [
+        "api/introduction"
+      ]
+    },
+    {
+      "group": "Analytics",
+      "pages": [
+        "analytics/introduction"
       ]
     }
   ],
