@@ -1,0 +1,26 @@
+---
+title: LDAP
+database: LDAP Authentifizierung für Shared Desk
+icon: list
+---
+
+Das Shared Desk System hat 2 Möglichkeiten sich zu authentifizieren.
+- Man kann sich mit einem Benutzernamen und Passwort anmelden
+- Man kann sich über LDAP anmelden
+Standardmäßig ist die LDAP Authentifizierung deaktiviert. Um LDAP zu aktivieren, müssen Sie die folgenden Schritte ausführen:
+
+1. Erstellen fügen sie folgende Zeilen zu den Umgebungsvariablen hinzu:
+```bash
+SPRING_LDAP_ENABLED=true
+SPRING_LDAP_URLS=ldap://localhost:389
+SPRING_LDAP_BASE=dc=example,dc=com
+SPRING_LDAP_USERNAME=cn=read-only-admin,dc=example,dc=com
+SPRING_LDAP_PASSWORD=password
+SPRING_LDAP_ADMIN_GROUP=cn=shared-desk-admin,dc=example,dc=com
+MANAGEMENT_HEALTH_LDAP_ENABLED=true
+```
+2. Ersetzen Sie die Werte durch Ihre LDAP-Konfiguration.
+3. Starten Sie die Anwendung neu.
+
+Ab jetzt können sich Benutzer über LDAP anmelden.
+- Wenn der Benutzer in der Gruppe `shared-desk-admin` ist, wird er als Administrator angemeldet.

@@ -21,14 +21,16 @@
       "url": "mailto:info@pedda.digital"
     }
   ],
+  "openapi": "/api/openapi.json",
   "topbarCtaButton": {
     "name": "App",
     "url": "https://staging.shared-desk.cloud"
   },
   "tabs": [
-  ],
-  "openapi": [
-    "https://staging.shared-desk.cloud/api-docs"
+    {
+      "name": "API Reference",
+      "url": "api"
+    }
   ],
   "anchors": [
     {
@@ -37,25 +39,217 @@
       "url": "https://shared-desk.cloud"
     },
     {
-      "name": "App",
-      "icon": "globe-pointer",
-      "url": "https://production.shared-desk.cloud"
-    },
-    {
-      "name": "Beta",
-      "icon": "flask",
-      "url": "https://staging.shared-desk.cloud"
+      "name": "GitHub",
+      "icon": "github",
+      "url": "https://github.com/SharedDesk "
     }
   ],
+  "feedback": {
+    "thumbsRating": true
+  },
+  "sidebar": {
+    "items": "container"
+  },
+  "rounded": "default",
+  "topbar": {
+    "style": "default"
+  },
+  "topAnchor": {
+    "name": "Dokumentation",
+    "icon": "book"
+  },
   "navigation": [
     {
       "group": "Einführung",
       "pages": [
         "installation",
+        {
+          "group": "Konfiguration",
+          "icon": "gear",
+          "pages": [
+            "configuration/ldap",
+            "configuration/sentry",
+            "configuration/mail",
+            "configuration/sessions"
+          ]
+        },
         "usermanual"
+      ]
+    },
+    {
+      "group": "API",
+      "pages": [
+        "api/introduction",
+        {
+          "group": "Authentication",
+          "icon": "lock",
+          "pages": [
+            "api/authentication/register-new-user",
+            "api/authentication/login-as-user",
+            "api/authentication/refresh-token",
+            "api/authentication/change-password",
+            "api/authentication/invalidate-token"
+          ]
+        },
+        {
+          "group": "Department",
+          "icon": "building",
+          "pages": [
+            "api/department/create-a-new-department",
+            "api/department/delete-a-department",
+            "api/department/get-all-departments",
+            "api/department/get-a-department",
+            "api/department/get-reports-for-a-department"
+          ]
+        },
+        {
+          "group": "Department Image",
+          "icon": "image",
+          "pages": [
+            "api/department/retrieve-a-department-image",
+            "api/department/upload-a-department-image",
+            "api/department/delete-a-department-image"
+          ]
+        },
+        {
+          "group": "Desk",
+          "icon": "table-picnic",
+          "pages": [
+            "api/desk/create-a-new-desk",
+            "api/desk/delete-desk",
+            "api/desk/get-all-desks",
+            "api/desk/get-desk",
+            "api/desk/get-equipment-for-a-desk",
+            "api/desk/get-reports-for-a-desk",
+            "api/desk/remove-fixed-user",
+            "api/desk/retrieve-desks-using-equipment",
+            "api/desk/set-equipment-for-a-desk",
+            "api/desk/set-fixed-user"
+          ]
+        },
+        {
+          "group": "Equipment",
+          "icon": "desktop",
+          "pages": [
+            "api/equipment/create-new-equipment",
+            "api/equipment/delete-equipment",
+            "api/equipment/get-all-equipment",
+            "api/equipment/get-apiequipment-desks",
+            "api/equipment/get-equipment",
+            "api/equipment/connect-equipment-to-a-desk"
+          ]
+        },
+        {
+          "group": "Password",
+          "icon": "lock",
+          "pages": [
+            "api/password/request-password-reset",
+            "api/password/reset-password-with-token"
+          ]
+        },
+        {
+          "group": "Report",
+          "icon": "flag",
+          "pages": [
+            "api/report/create-new-defect-report",
+            "api/report/delete-defect-report",
+            "api/report/get-all-reports",
+            "api/report/get-report"
+          ]
+        },
+        {
+          "group": "Reservation",
+          "icon": "calendar-check",
+          "pages": [
+            "api/reservation/cancel-reservation",
+            "api/reservation/create-reservation",
+            "api/reservation/get-all-reservations",
+            "api/reservation/get-reservation",
+            "api/reservation/get-reservations",
+            "api/reservation/split-reservation"
+          ]
+        },
+        {
+          "group": "Room",
+          "icon": "door-open",
+          "pages": [
+            "api/room/create-a-new-room",
+            "api/room/delete-room",
+            "api/room/get-reports",
+            "api/room/get-room",
+            "api/room/get-rooms"
+          ]
+        },
+        {
+          "group": "Search",
+          "icon": "magnifying-glass",
+          "pages": [
+            "api/search/post-apisearchdepartmentsnested",
+            "api/search/search-departments",
+            "api/search/search-desks",
+            "api/search/search-reports",
+            "api/search/search-rooms",
+            "api/search/search-users"
+          ]
+        },
+        {
+          "group": "Self",
+          "icon": "user",
+          "pages": [
+            "api/self/get-self",
+            "api/self/upload-profile-picture",
+            "api/self/delete-profile-picture"
+          ]
+        },
+        {
+          "group": "Session",
+          "icon": "key",
+          "pages": [
+            "api/session/delete-session",
+            "api/session/get-all-sessions",
+            "api/session/get-current-session"
+          ]
+        },
+        {
+          "group": "Stats",
+          "icon": "chart-bar",
+          "pages": [
+            "api/stats/get-statistics"
+          ]
+        },
+        {
+          "group": "User",
+          "icon": "users",
+          "pages": [
+            "api/user/create-user",
+            "api/user/delete-user",
+            "api/user/disable-user",
+            "api/user/enable-user",
+            "api/user/get-all-users",
+            "api/user/get-current-and-next-reservation",
+            "api/user/get-user",
+            "api/user/get-user-reservations",
+            "api/user/get-user-sessions",
+            "api/user/update-user"
+          ]
+        },
+        {
+          "group": "User Avatar",
+          "icon": "circle-user",
+          "pages": [
+            "api/user/get-user-avatar",
+            "api/user/upload-user-avatar",
+            "api/user/delete-user-avatar"
+          ]
+        }
       ]
     }
   ],
+  "versions": [
+    "latest",
+    "staging"
+  ],
+  "layout": "sidenav",
   "footerSocials": {
     "github": "https://github.com/SharedDesk"
   }
