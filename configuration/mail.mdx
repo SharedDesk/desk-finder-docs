@@ -1,0 +1,21 @@
+---
+title: Email
+description: Email Integration für Shared Desk
+---
+
+Einige Funktionen von Shared Desk erfordern die Verwendung von E-Mails. Zun Beispiel kann man sein Passwort zurücksetzen oder Benachrichtigungen erhalten.
+Um E-Mails in Shared Desk zu aktivieren, müssen Sie die folgenden Schritte ausführen:
+
+1. Fügen Sie die folgenden Zeilen zu den Umgebungsvariablen hinzu:
+```bash
+SPRING_MAIL_HOST=smtp.example.com
+SPRING_MAIL_PORT=587
+SPRING_MAIL_USERNAME=xxx
+SPRING_MAIL_PASSWORD=xxx
+SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH=true
+SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE=true
+SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_REQUIRED=true
+MANAGEMENT_HEALTH_MAIL_ENABLED=true
+```
+2. Ersetzen Sie die Werte durch Ihre E-Mail-Konfiguration.
+3. Starten Sie die Anwendung neu.

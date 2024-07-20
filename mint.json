@@ -25,17 +25,7 @@
     "name": "App",
     "url": "https://staging.shared-desk.cloud"
   },
-  "tabs": [
-    {
-      "name": "API Reference",
-      "url": "api",
-      "openapi": "/api/openapi.json"
-    },
-    {
-      "name": "Analytics",
-      "url": "analytics"
-    }
-  ],
+  "tabs": [],
   "anchors": [
     {
       "name": "Homepage",
@@ -58,21 +48,19 @@
       "group": "Einführung",
       "pages": [
         "installation",
+        {
+          "group": "Configuration",
+          "pages": [
+            "configuration/LDAP",
+            "configuration/sentry",
+            "configuration/mail",
+            "configuration/sessions"
+          ]
+        },
         "usermanual"
       ]
-    },
-    {
-      "group": "API",
-      "pages": [
-        "api/introduction"
-      ]
-    },
-    {
-      "group": "Analytics",
-      "pages": [
-        "analytics/introduction"
-      ]
     }
+
   ],
   "footerSocials": {
     "github": "https://github.com/SharedDesk"

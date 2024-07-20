@@ -1,0 +1,21 @@
+---
+title: Sentry
+description: Sentry Integration für Shared Desk
+---
+
+<Note>
+    Sentry ist ein Open-Source-Tool zur Fehlerüberwachung, das Ihnen hilft, Probleme in Echtzeit zu erkennen und zu
+    beheben. Sentry kann in Shared Desk integriert werden, um Fehler in der Anwendung zu überwachen und
+    Benachrichtigungen zu erhalten, wenn ein Fehler auftritt.
+</Note>
+
+## Schritte zur Integration von Sentry
+
+1. Erstellen Sie ein Sentry-Konto, wenn Sie noch keines haben. Gehen Sie zu [sentry.io](https://sentry.io) und melden Sie sich an.
+2. Erstellen Sie ein neues Projekt in Sentry.
+3. Kopieren Sie den DSN (Data Source Name) für das Projekt.
+4. Fügen Sie den DSN in die Umgebungsvariablen ein:
+```bash
+SENTRY_DSN=your-dsn
+```
+5. Starten Sie die Anwendung neu.

@@ -1,0 +1,20 @@
+# Sessions Configuration
+
+## Sessions
+
+Alle Sessions werden durch JWT (JSON Web Token) verwaltet. Die JWTs werden im LocalStorage des Browsers gespeichert.
+Ein Verschlüsslung-Schlüssel wird verwendet, um die JWTs zu signieren und zu überprüfen.
+
+Es können folgende Umgebungsvariablen gesetzt werden:
+
+```bash
+# JWT
+APPLICATION_JWT_SECRET=secret
+APPLICATION_JWT_ACCESS_EXPIRATION=86400000   # 1 Tag
+APPLICATION_JWT_REFRESH_EXPIRATION=604800000 # 7 Tage
+```
+Du kannst einen zufälligen Schlüssel generieren, indem du den folgenden Befehl ausführst:
+
+```bash
+openssl rand -base64 64
+```
