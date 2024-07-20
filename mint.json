@@ -21,7 +21,7 @@
       "url": "mailto:info@pedda.digital"
     }
   ],
-  "openapi": "/api/openapi.json",
+  "openapi": "/api-reference/openapi.json",
   "topbarCtaButton": {
     "name": "App",
     "url": "https://staging.shared-desk.cloud"
@@ -29,7 +29,7 @@
   "tabs": [
     {
       "name": "API Reference",
-      "url": "api"
+      "url": "api-reference"
     }
   ],
   "anchors": [
@@ -79,167 +79,165 @@
     {
       "group": "API",
       "pages": [
-        "api/introduction",
+        "api-reference/introduction",
         {
           "group": "Authentication",
           "icon": "lock",
           "pages": [
-            "api/authentication/register-new-user",
-            "api/authentication/login-as-user",
-            "api/authentication/refresh-token",
-            "api/authentication/change-password",
-            "api/authentication/invalidate-token"
+            "api-reference/authentication/register-new-user",
+            "api-reference/authentication/login-as-user",
+            "api-reference/authentication/refresh-token",
+            "api-reference/authentication/change-password",
+            "api-reference/authentication/invalidate-token"
           ]
         },
         {
           "group": "Department",
           "icon": "building",
           "pages": [
-            "api/department/create-a-new-department",
-            "api/department/delete-a-department",
-            "api/department/get-all-departments",
-            "api/department/get-a-department",
-            "api/department/get-reports-for-a-department"
+            "api-reference/department/create-a-new-department",
+            "api-reference/department/delete-a-department",
+            "api-reference/department/get-all-departments",
+            "api-reference/department/get-a-department",
+            "api-reference/department/get-reports-for-a-department"
           ]
         },
         {
           "group": "Department Image",
           "icon": "image",
           "pages": [
-            "api/department/retrieve-a-department-image",
-            "api/department/upload-a-department-image",
-            "api/department/delete-a-department-image"
+            "api-reference/department/retrieve-a-department-image",
+            "api-reference/department/upload-a-department-image",
+            "api-reference/department/delete-a-department-image"
           ]
         },
         {
           "group": "Desk",
           "icon": "table-picnic",
           "pages": [
-            "api/desk/create-a-new-desk",
-            "api/desk/delete-desk",
-            "api/desk/get-all-desks",
-            "api/desk/get-desk",
-            "api/desk/get-equipment-for-a-desk",
-            "api/desk/get-reports-for-a-desk",
-            "api/desk/remove-fixed-user",
-            "api/desk/retrieve-desks-using-equipment",
-            "api/desk/set-equipment-for-a-desk",
-            "api/desk/set-fixed-user"
+            "api-reference/desk/create-a-new-desk",
+            "api-reference/desk/delete-desk",
+            "api-reference/desk/get-all-desks",
+            "api-reference/desk/get-desk",
+            "api-reference/desk/get-equipment-for-a-desk",
+            "api-reference/desk/get-reports-for-a-desk",
+            "api-reference/desk/remove-fixed-user",
+            "api-reference/desk/retrieve-desks-using-equipment",
+            "api-reference/desk/set-equipment-for-a-desk",
+            "api-reference/desk/set-fixed-user"
           ]
         },
         {
           "group": "Equipment",
           "icon": "desktop",
           "pages": [
-            "api/equipment/create-new-equipment",
-            "api/equipment/delete-equipment",
-            "api/equipment/get-all-equipment",
-            "api/equipment/get-apiequipment-desks",
-            "api/equipment/get-equipment",
-            "api/equipment/connect-equipment-to-a-desk"
+            "api-reference/equipment/create-new-equipment",
+            "api-reference/equipment/delete-equipment",
+            "api-reference/equipment/get-all-equipment",
+            "api-reference/equipment/get-equipment",
+            "api-reference/equipment/connect-equipment-to-a-desk"
           ]
         },
         {
           "group": "Password",
           "icon": "lock",
           "pages": [
-            "api/password/request-password-reset",
-            "api/password/reset-password-with-token"
+            "api-reference/password/request-password-reset",
+            "api-reference/password/reset-password-with-token"
           ]
         },
         {
           "group": "Report",
           "icon": "flag",
           "pages": [
-            "api/report/create-new-defect-report",
-            "api/report/delete-defect-report",
-            "api/report/get-all-reports",
-            "api/report/get-report"
+            "api-reference/report/create-new-defect-report",
+            "api-reference/report/delete-defect-report",
+            "api-reference/report/get-all-reports",
+            "api-reference/report/get-report"
           ]
         },
         {
           "group": "Reservation",
           "icon": "calendar-check",
           "pages": [
-            "api/reservation/cancel-reservation",
-            "api/reservation/create-reservation",
-            "api/reservation/get-all-reservations",
-            "api/reservation/get-reservation",
-            "api/reservation/get-reservations",
-            "api/reservation/split-reservation"
+            "api-reference/reservation/cancel-reservation",
+            "api-reference/reservation/create-reservation",
+            "api-reference/reservation/get-all-reservations",
+            "api-reference/reservation/get-reservation",
+            "api-reference/reservation/get-reservations",
+            "api-reference/reservation/split-reservation"
           ]
         },
         {
           "group": "Room",
           "icon": "door-open",
           "pages": [
-            "api/room/create-a-new-room",
-            "api/room/delete-room",
-            "api/room/get-reports",
-            "api/room/get-room",
-            "api/room/get-rooms"
+            "api-reference/room/create-a-new-room",
+            "api-reference/room/delete-room",
+            "api-reference/room/get-reports",
+            "api-reference/room/get-room",
+            "api-reference/room/get-rooms"
           ]
         },
         {
           "group": "Search",
           "icon": "magnifying-glass",
           "pages": [
-            "api/search/post-apisearchdepartmentsnested",
-            "api/search/search-departments",
-            "api/search/search-desks",
-            "api/search/search-reports",
-            "api/search/search-rooms",
-            "api/search/search-users"
+            "api-reference/search/search-departments",
+            "api-reference/search/search-desks",
+            "api-reference/search/search-reports",
+            "api-reference/search/search-rooms",
+            "api-reference/search/search-users"
           ]
         },
         {
           "group": "Self",
           "icon": "user",
           "pages": [
-            "api/self/get-self",
-            "api/self/upload-profile-picture",
-            "api/self/delete-profile-picture"
+            "api-reference/self/get-self",
+            "api-reference/self/upload-profile-picture",
+            "api-reference/self/delete-profile-picture"
           ]
         },
         {
           "group": "Session",
           "icon": "key",
           "pages": [
-            "api/session/delete-session",
-            "api/session/get-all-sessions",
-            "api/session/get-current-session"
+            "api-reference/session/delete-session",
+            "api-reference/session/get-all-sessions",
+            "api-reference/session/get-current-session"
           ]
         },
         {
           "group": "Stats",
           "icon": "chart-bar",
           "pages": [
-            "api/stats/get-statistics"
+            "api-reference/stats/get-statistics"
           ]
         },
         {
           "group": "User",
           "icon": "users",
           "pages": [
-            "api/user/create-user",
-            "api/user/delete-user",
-            "api/user/disable-user",
-            "api/user/enable-user",
-            "api/user/get-all-users",
-            "api/user/get-current-and-next-reservation",
-            "api/user/get-user",
-            "api/user/get-user-reservations",
-            "api/user/get-user-sessions",
-            "api/user/update-user"
+            "api-reference/user/create-user",
+            "api-reference/user/delete-user",
+            "api-reference/user/disable-user",
+            "api-reference/user/enable-user",
+            "api-reference/user/get-all-users",
+            "api-reference/user/get-current-and-next-reservation",
+            "api-reference/user/get-user",
+            "api-reference/user/get-user-reservations",
+            "api-reference/user/get-user-sessions",
+            "api-reference/user/update-user"
           ]
         },
         {
           "group": "User Avatar",
           "icon": "circle-user",
           "pages": [
-            "api/user/get-user-avatar",
-            "api/user/upload-user-avatar",
-            "api/user/delete-user-avatar"
+            "api-reference/user/get-user-avatar",
+            "api-reference/user/upload-user-avatar",
+            "api-reference/user/delete-user-avatar"
           ]
         }
       ]
