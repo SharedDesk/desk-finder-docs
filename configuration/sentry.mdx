@@ -1,6 +1,7 @@
 ---
 title: Sentry
 description: Sentry Integration für Shared Desk
+icon: bug
 ---
 
 <Note>
@@ -17,5 +18,9 @@ description: Sentry Integration für Shared Desk
 4. Fügen Sie den DSN in die Umgebungsvariablen ein:
 ```bash
 SENTRY_DSN=your-dsn
+SENTRY_ENVIRONMENT=production
+SENTRY_TRACES_SAMPLE_RATE=0.1
+SENTRY_SAMPLE_RATE=0.2
 ```
+Für weitere Informationen zu den Sentry Einstellungen siehe [Sentry Dokumentation](https://docs.sentry.io/platforms/java/guides/spring-boot/).
 5. Starten Sie die Anwendung neu.

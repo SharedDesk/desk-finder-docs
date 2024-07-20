@@ -1,33 +1,61 @@
 ---
 title: 'Introduction'
-description: 'Example section for showcasing API endpoints'
+description: 'Shared Desk API Dokumentation'
+icon: 'code'
 ---
 
+Alternativ kann auch eine Swagger UI zur Erkundung genutzt werden. Die Swagger UI kann unter [production.shared-desk.cloud/swagger-ui/](https://production.shared-desk.cloud/swagger-ui/index.html) aufgerufen werden.
+Die Open API Spezifikation kann unter [production.shared-desk.cloud/api-docs](https://production.shared-desk.cloud/api-docs) abgerufen werden.
+
 <Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
+    Fast alle Endpunkte in Shared Desk sind durch JWT (JSON Web Token) geschützt. Das bedeutet, dass ein gültiges JWT im
+    Header der Anfrage enthalten sein muss, um auf die Endpunkte zuzugreifen. Wenn kein JWT vorhanden ist oder das JWT
+    ungültig ist, wird der Zugriff verweigert.
 </Note>
 
-## Welcome
-
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
-
-<Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
->
-  View the OpenAPI specification file
-</Card>
-
-## Authentication
-
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
-
-```json
-"security": [
-  {
-    "bearerAuth": []
-  }
-]
-```
+<CardGroup cols={3}>
+    <Card title="Authentication" icon="lock" href="/api/authentication">
+        Manage user authentication, including registration, login, token refresh, password changes, and token
+        invalidation.
+    </Card>
+    <Card title="Department" icon="building" href="/api/department">
+        Create, read, update, and delete departments, as well as manage department-related reports and images.
+    </Card>
+    <Card title="Desk" icon="table-picnic" href="/api/desk">
+        Manage desks, including creation, deletion, retrieval, equipment assignment, user assignment, and reporting.
+    </Card>
+    <Card title="Equipment" icon="desktop" href="/api/equipment">
+        Manage equipment, including creation, deletion, retrieval, and association with desks.
+    </Card>
+    <Card title="Password" icon="lock" href="/api/password">
+        Handle password reset requests and password updates with tokens.
+    </Card>
+    <Card title="Report" icon="flag" href="/api/report">
+        Create, read, update, and delete reports related to defects or issues.
+    </Card>
+    <Card title="Reservation" icon="calendar-check" href="/api/reservation">
+        Manage desk reservations, including creation, cancellation, retrieval, and splitting.
+    </Card>
+    <Card title="Room" icon="door-open" href="/api/room">
+        Create, read, update, and delete rooms, and manage room-related reports.
+    </Card>
+    <Card title="Search" icon="magnifying-glass" href="/api/search">
+        Perform advanced searches for departments, rooms, desks, reports, and users.
+    </Card>
+    <Card title="Self" icon="user" href="/api/self">
+        Manage your own profile information and profile picture.
+    </Card>
+    <Card title="Session" icon="key" href="/api/session">
+        Manage user sessions, including retrieval and deletion.
+    </Card>
+    <Card title="Stats" icon="chart-bar" href="/api/stats">
+        Retrieve system statistics and usage data.
+    </Card>
+    <Card title="User" icon="users" href="/api/user">
+        Manage users, including creation, deletion, enabling/disabling, retrieval of user details, reservations, and
+        sessions.
+    </Card>
+    <Card title="User Avatar" icon="circle-user" href="/api/user">
+        Manage user avatars, including retrieval, upload, and deletion.
+    </Card>
+</CardGroup>
