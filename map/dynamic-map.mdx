@@ -1,0 +1,108 @@
+---
+title: "Karte erstellen"
+description: "Auf dieser Karte können Tische ausgewählt werden."
+---
+
+# Voraussetzungen
+
+Zuerst sollen die Räume und Tische des Departments erstellt werden, von welchem eine Karte angefertigt werden soll.
+
+# Aufbau
+
+Die Tische und Räume werden nach einem Muster geladen und angezeigt. Dazu verwenden wir *Scalable Vector Graphics* (SVG).
+
+Dazu müssen sie einem genauem Muster folgen:
+
+## SVG Hirarchie
+
+```
+department:<id>
+|- room:<id>
+|  |- table:<id>
+|  |- table:<id>
+|  |- table:<id>
+|- room:<id>
+|  |- table:<id>
+|  |- table:<id>
+```
+Departments, Räume und Tische werden in einer Hierarchie dargestellt. Ein Department kann mehrere Räume enthalten, ein Raum mehrere Tische.
+
+## Vorlage
+
+Eine SVG Vorlage findest du auf der [Vorlagen Seite](/map/dynamic-example).
+
+# Erstellung
+<Steps>
+    <Step>Lade die Vorlage herunter.</Step>
+    <Step>
+        Öffne die Vorlage in einem SVG Editor.
+        - [Inkscape](https://inkscape.org/) - Kostenloser Download
+        - [Figma](https://www.figma.com/) - kostenloser Online Editor
+    </Step>
+    <Step>Passe die Vorlage an.</Step>
+    <Step>Exportiere die Datei.</Step>
+    <Step>Importiere die Datei.</Step>
+</Steps>
+
+## Anpassungen
+
+Bearbeite dazu die Vorlage und ersetze die `XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX` durch die wirklichen Department, Raum und Tisch IDs.
+
+<Frame>
+    ![Vorlage](images/map/edit-id.png)
+</Frame>
+
+Wie bekomme ich die IDs?
+
+1. Gehe auf die [Department Übersicht Seite](https://production.shared-desk.cloud/departments).
+2. Wähle im Dropdown die Spalte `ID` aus.
+3. Kopiere die ID des Departments.
+4. Wiederhole die Schritte 1-3 für die Räume und Tische.
+
+<Tabs>
+    <Tab title="Department">
+        ![Department ID](images/map/department-id.png)
+        Department Seite
+    </Tab>
+    <Tab title="Raum">
+        ![Raum ID](images/map/room-id.png)
+        Raum Seite
+    </Tab>
+    <Tab title="Tisch">
+        ![Tisch ID](images/map/desk-id.png)
+        Tisch Seite
+    </Tab>
+</Tabs>
+
+## Exportieren der Datei aus dem Editor
+
+
+<Warning>
+    Wichtig ist beim exportieren der Datei, auch die IDs zu exportieren. Dazu sollte die Option `ID Attribute` aktiviert
+    sein.
+</Warning>
+
+Wie du die Datei exportierst, hängt von deinem Editor ab. Hier ein Beispiel für Figma:
+<Frame>
+    ![Exportieren](images/map/export.png)
+</Frame>
+
+## Importieren der Datei
+<Steps>
+    <Step>Gehe auf die [Department-Seite](https://production.shared-desk.cloud/admin/departments).</Step>
+    <Step>Klicke auf den Button *Karte bearbeiten*.</Step>
+    <Step>Klicke auf *Auswählen* und wähle die exportierte Datei aus. ![Karte
+        bearbeiten](images/map/import.png)</Step>
+    <Step>Anschließend siehst du alle erkannten Räume und Tische. Außerdem siehst du auch alle Räume und Tische die noch
+        nicht erkannt wurden. Wenn du mit dem Ergebnis zufrieden bist, klicke auf *Hochladen*.
+        ![Validieren](images/map/validate.png)</Step>
+
+</Steps>
+
+# Anzeige
+
+Wenn alles korrekt importiert wurde, wird beim Buchen der Tisch auf der Karte angezeigt.
+
+<Frame>
+    ![Anzeige](images/map/preview.gif)
+</Frame>
